@@ -22,6 +22,7 @@ import re
 import sys
 from datetime import datetime
 from pathlib import Path
+from urllib.parse import urlparse
 
 try:
     from zoneinfo import ZoneInfo
@@ -164,13 +165,47 @@ def extract_price(page):
     return None, None
 
 
+def warm_up(context, host, warmed):
+    """Visit a site's homepage once to acquire bot-protection cookies (Akamai etc.)
+    and dismiss the cookie banner, so subsequent product pages aren't 403'd."""
+    if not host or host in warmed:
+        return
+    warmed.add(host)
+    page = context.new_page()
+    try:
+        page.goto(f"https://{host}/", wait_until="domcontentloaded", timeout=45000)
+        try:
+            page.wait_for_load_state("networkidle", timeout=8000)
+        except Exception:
+            pass
+        for sel in ("#onetrust-accept-btn-handler",
+                    "button#onetrust-accept-btn-handler",
+                    "button:has-text('Alles accepteren')",
+                    "button:has-text('Alles aanvaarden')",
+                    "button:has-text('Accepteren')",
+                    "button[aria-label*='accept' i]"):
+            try:
+                el = page.query_selector(sel)
+                if el:
+                    el.click(timeout=2000)
+                    break
+            except Exception:
+                pass
+        page.wait_for_timeout(1500)
+    except Exception:
+        pass
+    finally:
+        page.close()
+
+
 def scrape_item(context, item):
     """Return dict: {price, method, status, message}."""
     page = context.new_page()
+    referer = f"https://{urlparse(item['url']).netloc}/"
     try:
         for attempt in (1, 2):
             try:
-                resp = page.goto(item["url"], wait_until="domcontentloaded", timeout=45000)
+                resp = page.goto(item["url"], wait_until="domcontentloaded", timeout=45000, referer=referer)
             except Exception as e:
                 if attempt == 2:
                     return {"price": None, "method": None, "status": "error",
@@ -301,6 +336,7 @@ def main():
     updated_items = []
     summary = []
     new_lows = []
+    warmed = set()
 
     with sync_playwright() as pw:
         browser = pw.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
@@ -309,10 +345,15 @@ def main():
             locale="nl-BE",
             timezone_id="Europe/Brussels",
             viewport={"width": 1366, "height": 900},
-            extra_http_headers={"Accept-Language": "nl-BE,nl;q=0.9,en;q=0.6"},
+            extra_http_headers={
+                "Accept-Language": "nl-BE,nl;q=0.9,en;q=0.6",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                "Upgrade-Insecure-Requests": "1",
+            },
         )
         for item in config["items"]:
             print(f"[scrape] {item['id']} … ", end="", flush=True)
+            warm_up(context, urlparse(item["url"]).netloc, warmed)
             result = scrape_item(context, item)
             existing = existing_by_id.get(item["id"])
             rec = merge(existing, item, result, today, now_iso)
