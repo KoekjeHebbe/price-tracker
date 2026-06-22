@@ -116,6 +116,16 @@
 
   .foretext { font-size: 12.5px; color: var(--warn); margin-top: 6px; }
 
+  /* Colour variants (one product, multiple finishes) */
+  .price-now .from { font-size: 12px; font-weight: 600; color: var(--faint); margin-right: 7px; text-transform: uppercase; letter-spacing: .04em; vertical-align: middle; }
+  .variants { display: flex; flex-direction: column; gap: 3px; margin: 2px 0 12px; }
+  .variant { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 5px 10px; border-radius: 9px; text-decoration: none; color: var(--muted); font-size: 13px; border: 1px solid var(--line); }
+  .variant:hover { color: var(--ink); border-color: var(--line-strong); }
+  .variant.best { background: var(--good-bg); border-color: #bcd9c3; color: var(--ink); }
+  .variant .v-price { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .variant.best .v-price { color: var(--good); }
+  .variant .v-stale { color: var(--warn); font-weight: 600; }
+
   footer.page { margin-top: 48px; color: var(--faint); font-size: 12.5px; text-align: center; }
   footer.page a { color: var(--accent); }
   .err { color: var(--up); }
@@ -248,14 +258,25 @@ function card(it) {
 
   const note = (it.message && (stale || pending)) ? `<div class="foretext">${it.message}</div>` : "";
 
+  const fromLabel = (Array.isArray(it.variants) && it.variants.length > 1 && has) ? `<span class="from">vanaf</span>` : "";
+  const variantsHtml = (Array.isArray(it.variants) && it.variants.length)
+    ? `<div class="variants">${it.variants.map(v => {
+        const vhas = typeof v.currentPrice === "number";
+        const isBest = vhas && has && Math.abs(v.currentPrice - it.currentPrice) < 0.005;
+        const vp = vhas ? fmtMoney(v.currentPrice) : (v.status === "error" ? `<span class="v-stale">stale</span>` : "—");
+        return `<a class="variant${isBest ? " best" : ""}" href="${v.url}" target="_blank" rel="noopener"><span class="v-label">${v.label}</span><span class="v-price">${vp}</span></a>`;
+      }).join("")}</div>`
+    : "";
+
   const cls = ["card"];
   if (has && atLowest) cls.push("is-lowest");
   if (stale || pending) cls.push("is-stale");
 
   return `<article class="${cls.join(" ")}">
     <a class="name" href="${it.url}" target="_blank" rel="noopener">${it.name} <span class="ext">↗</span></a>
-    <div class="price-row"><div class="price-now">${priceHtml}</div>${badge}</div>
+    <div class="price-row"><div class="price-now">${fromLabel}${priceHtml}</div>${badge}</div>
     ${has ? sparkline(it.history || []) : ""}
+    ${variantsHtml}
     ${lowHtml}
     <div class="foot"><span class="${dotClass}"></span>${footText}</div>
     ${note}

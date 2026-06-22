@@ -28,18 +28,24 @@
     {
       "id": "tv-fonq-glinta",
       "category": "TV MEUBEL",
-      "name": "fonQ · by fonQ Glinta tv-meubel crème",
-      "url": "https://www.fonq.be/products/by-fonq-glinta-tv-meubel-creme-331698",
+      "name": "fonQ · by fonQ Glinta tv-meubel (NL)",
+      "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-creme-331698",
       "currency": "EUR",
-      "currentPrice": null,
-      "status": "pending",
-      "message": "HTTP 404",
-      "lastChecked": "2026-06-22T20:29:37+02:00",
-      "history": [],
-      "lowestPrice": null,
-      "lowestDate": null,
-      "highestPrice": null,
-      "highestDate": null
+      "currentPrice": 348.95,
+      "lowestPrice": 348.95,
+      "lowestDate": "2026-06-22",
+      "highestPrice": 348.95,
+      "highestDate": "2026-06-22",
+      "lastChecked": "2026-06-22T00:00:00+00:00",
+      "status": "ok",
+      "message": "Beginprijs (handmatig geverifieerd). Goedkoopste kleur.",
+      "variants": [
+        { "label": "Crème", "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-creme-331698", "currentPrice": 348.95, "status": "ok" },
+        { "label": "Chocolade bruin", "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-chocolade-bruin-331697", "currentPrice": 348.95, "status": "ok" }
+      ],
+      "history": [
+        { "date": "2026-06-22", "price": 348.95 }
+      ]
     },
     {
       "id": "tafel-laredoute-amorino",

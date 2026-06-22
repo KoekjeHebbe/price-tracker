@@ -198,14 +198,14 @@ def warm_up(context, host, warmed):
         page.close()
 
 
-def scrape_item(context, item):
-    """Return dict: {price, method, status, message}."""
+def scrape_url(context, url):
+    """Scrape one product URL. Return {price, method, status, message}."""
     page = context.new_page()
-    referer = f"https://{urlparse(item['url']).netloc}/"
+    referer = f"https://{urlparse(url).netloc}/"
     try:
         for attempt in (1, 2):
             try:
-                resp = page.goto(item["url"], wait_until="domcontentloaded", timeout=45000, referer=referer)
+                resp = page.goto(url, wait_until="domcontentloaded", timeout=45000, referer=referer)
             except Exception as e:
                 if attempt == 2:
                     return {"price": None, "method": None, "status": "error",
@@ -242,13 +242,13 @@ def scrape_item(context, item):
 # --------------------------------------------------------------------------- #
 # History merge
 # --------------------------------------------------------------------------- #
-def merge(existing, item, scrape, today, now_iso):
+def merge(existing, item, scrape, today, now_iso, url):
     """Produce the updated per-item record."""
     rec = {
         "id": item["id"],
         "category": item["category"],
         "name": item["name"],
-        "url": item["url"],
+        "url": url,
         "currency": existing.get("currency", "EUR") if existing else "EUR",
     }
     history = list(existing.get("history", [])) if existing else []
@@ -280,6 +280,38 @@ def merge(existing, item, scrape, today, now_iso):
         rec["lowestPrice"] = rec["lowestDate"] = None
         rec["highestPrice"] = rec["highestDate"] = None
     return rec
+
+
+def scrape_config_item(context, item, warmed):
+    """Scrape a config item (single url OR multiple colour variants).
+
+    Returns (result, variant_snaps, effective_url):
+      result        = {price, method, status, message} at the ITEM level
+                      (item price = cheapest variant for multi-variant items)
+      variant_snaps = per-colour snapshot list, or None for single-url items
+      effective_url = the URL the card links to (cheapest variant, or the url)
+    """
+    if item.get("variants"):
+        snaps = []
+        for v in item["variants"]:
+            warm_up(context, urlparse(v["url"]).netloc, warmed)
+            r = scrape_url(context, v["url"])
+            snaps.append({
+                "label": v.get("label", ""), "url": v["url"],
+                "currentPrice": r["price"], "status": r["status"], "message": r["message"],
+            })
+        priced = [s for s in snaps if s["status"] == "ok" and s["currentPrice"] is not None]
+        if priced:
+            best = min(priced, key=lambda s: s["currentPrice"])
+            result = {"price": best["currentPrice"], "method": "variants", "status": "ok", "message": ""}
+            return result, snaps, best["url"]
+        any_err = any(s["status"] == "error" for s in snaps)
+        msg = "; ".join(f"{s['label']}: {s['message']}" for s in snaps if s["message"]) or "Geen prijs gevonden."
+        result = {"price": None, "method": None, "status": "error" if any_err else "pending", "message": msg}
+        return result, snaps, item["variants"][0]["url"]
+
+    warm_up(context, urlparse(item["url"]).netloc, warmed)
+    return scrape_url(context, item["url"]), None, item["url"]
 
 
 # --------------------------------------------------------------------------- #
@@ -353,17 +385,18 @@ def main():
         )
         for item in config["items"]:
             print(f"[scrape] {item['id']} … ", end="", flush=True)
-            warm_up(context, urlparse(item["url"]).netloc, warmed)
-            result = scrape_item(context, item)
+            result, snaps, eff_url = scrape_config_item(context, item, warmed)
             existing = existing_by_id.get(item["id"])
-            rec = merge(existing, item, result, today, now_iso)
+            rec = merge(existing, item, result, today, now_iso, eff_url)
+            if snaps is not None:
+                rec["variants"] = snaps
             updated_items.append(rec)
             # New record-low = a successful scrape that beats the PREVIOUS lowest.
             prev_low = (existing or {}).get("lowestPrice")
             if (result["status"] == "ok" and result["price"] is not None
                     and isinstance(prev_low, (int, float))
                     and result["price"] < prev_low - 0.005):
-                new_lows.append({"name": item["name"], "url": item["url"],
+                new_lows.append({"name": item["name"], "url": eff_url,
                                  "oldLow": prev_low, "newPrice": result["price"]})
             tag = result["status"].upper()
             price_str = f"€{result['price']}" if result["price"] is not None else "—"

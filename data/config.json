@@ -12,8 +12,11 @@
     {
       "id": "tv-fonq-glinta",
       "category": "TV MEUBEL",
-      "name": "fonQ · by fonQ Glinta tv-meubel crème",
-      "url": "https://www.fonq.be/products/by-fonq-glinta-tv-meubel-creme-331698"
+      "name": "fonQ · by fonQ Glinta tv-meubel (NL)",
+      "variants": [
+        { "label": "Crème", "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-creme-331698" },
+        { "label": "Chocolade bruin", "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-chocolade-bruin-331697" }
+      ]
     },
     {
       "id": "tafel-laredoute-amorino",
