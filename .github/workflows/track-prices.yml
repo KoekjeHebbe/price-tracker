@@ -1,0 +1,62 @@
+name: Track prices
+
+on:
+  schedule:
+    # 06:00 UTC daily (~08:00 in Brussels in summer, 07:00 in winter).
+    - cron: "0 6 * * *"
+  workflow_dispatch: {}   # adds a manual "Run workflow" button in the Actions tab
+
+# Allow the built-in GITHUB_TOKEN to push data and open alert issues. No PAT needed.
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: track-prices
+  cancel-in-progress: false
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r scraper/requirements.txt
+
+      - name: Install Chromium for Playwright
+        run: python -m playwright install --with-deps chromium
+
+      - name: Scrape prices
+        run: |
+          export PAGE_URL="https://${GITHUB_REPOSITORY%/*}.github.io/${GITHUB_REPOSITORY#*/}/"
+          python scraper/scrape.py
+
+      - name: Commit updated prices
+        run: |
+          git config user.name "price-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/prices.json
+          if git diff --staged --quiet; then
+            echo "No price changes to commit."
+          else
+            git commit -m "Update prices ($(TZ=Europe/Brussels date +'%Y-%m-%d %H:%M'))"
+            git push
+          fi
+
+      - name: Alert on new lowest price
+        if: hashFiles('ALERT_BODY.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # @mention the repo owner so GitHub emails the notification.
+          printf '\n\ncc @%s\n' "${{ github.repository_owner }}" >> ALERT_BODY.md
+          gh issue create \
+            --title "💸 Nieuwe laagste prijs ($(TZ=Europe/Brussels date +'%Y-%m-%d'))" \
+            --body-file ALERT_BODY.md

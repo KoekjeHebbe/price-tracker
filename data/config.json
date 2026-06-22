@@ -1,0 +1,43 @@
+{
+  "trackingStartDate": "2026-06-22",
+  "currency": "EUR",
+  "timezone": "Europe/Brussels",
+  "items": [
+    {
+      "id": "tv-westwing-robyn",
+      "category": "TV MEUBEL",
+      "name": "Westwing · Metalen tv-meubel Robyn (Maven lowboard)",
+      "url": "https://www.westwing.be/maven-lowboard-metal-door-beige0425-2-texture_pearl-white-en-25wes98013.html?simple=DEQ25WES98013-771537"
+    },
+    {
+      "id": "tv-fonq-glinta",
+      "category": "TV MEUBEL",
+      "name": "fonQ · by fonQ Glinta tv-meubel crème",
+      "url": "https://www.fonq.be/products/by-fonq-glinta-tv-meubel-creme-331698"
+    },
+    {
+      "id": "tafel-laredoute-amorino",
+      "category": "TAFEL",
+      "name": "La Redoute · Uittrekbare eettafel Amorino (walnootfineer)",
+      "url": "https://www.laredoute.be/nl/ppdp/prod-351187309.aspx?docid=868526"
+    },
+    {
+      "id": "kast-laredoute-molna",
+      "category": "EXTRA KAST",
+      "name": "La Redoute · Buisvormige console Molna",
+      "url": "https://www.laredoute.be/nl/ppdp/prod-350299251.aspx"
+    },
+    {
+      "id": "kast-laredoute-socer",
+      "category": "EXTRA KAST",
+      "name": "La Redoute · Console Socer (dubbel gelakt blad)",
+      "url": "https://www.laredoute.be/nl/ppdp/prod-350356087.aspx"
+    },
+    {
+      "id": "deco-laredoute-neil",
+      "category": "DECO",
+      "name": "La Redoute · Dekbedovertrek Neil (getuft katoen)",
+      "url": "https://www.laredoute.be/nl/ppdp/prod-350355078.aspx"
+    }
+  ]
+}

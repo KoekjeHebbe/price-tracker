@@ -1,0 +1,114 @@
+{
+  "trackingStartDate": "2026-06-22",
+  "currency": "EUR",
+  "timezone": "Europe/Brussels",
+  "lastUpdated": "2026-06-22T00:00:00+00:00",
+  "items": [
+    {
+      "id": "tv-westwing-robyn",
+      "category": "TV MEUBEL",
+      "name": "Westwing · Metalen tv-meubel Robyn (Maven lowboard)",
+      "url": "https://www.westwing.be/maven-lowboard-metal-door-beige0425-2-texture_pearl-white-en-25wes98013.html?simple=DEQ25WES98013-771537",
+      "currency": "EUR",
+      "currentPrice": 899.0,
+      "lowestPrice": 899.0,
+      "lowestDate": "2026-06-22",
+      "highestPrice": 899.0,
+      "highestDate": "2026-06-22",
+      "lastChecked": "2026-06-22T00:00:00+00:00",
+      "status": "ok",
+      "message": "Beginprijs (handmatig geverifieerd).",
+      "history": [
+        { "date": "2026-06-22", "price": 899.0 }
+      ]
+    },
+    {
+      "id": "tv-fonq-glinta",
+      "category": "TV MEUBEL",
+      "name": "fonQ · by fonQ Glinta tv-meubel crème",
+      "url": "https://www.fonq.be/products/by-fonq-glinta-tv-meubel-creme-331698",
+      "currency": "EUR",
+      "currentPrice": null,
+      "lowestPrice": null,
+      "lowestDate": null,
+      "highestPrice": null,
+      "highestDate": null,
+      "lastChecked": null,
+      "status": "pending",
+      "message": "Nog niet opgehaald (wacht op eerste scrape).",
+      "history": []
+    },
+    {
+      "id": "tafel-laredoute-amorino",
+      "category": "TAFEL",
+      "name": "La Redoute · Uittrekbare eettafel Amorino (walnootfineer)",
+      "url": "https://www.laredoute.be/nl/ppdp/prod-351187309.aspx?docid=868526",
+      "currency": "EUR",
+      "currentPrice": 679.0,
+      "lowestPrice": 679.0,
+      "lowestDate": "2026-06-22",
+      "highestPrice": 679.0,
+      "highestDate": "2026-06-22",
+      "lastChecked": "2026-06-22T00:00:00+00:00",
+      "status": "ok",
+      "message": "Beginprijs (handmatig geverifieerd). 'Vanaf'-prijs.",
+      "history": [
+        { "date": "2026-06-22", "price": 679.0 }
+      ]
+    },
+    {
+      "id": "kast-laredoute-molna",
+      "category": "EXTRA KAST",
+      "name": "La Redoute · Buisvormige console Molna",
+      "url": "https://www.laredoute.be/nl/ppdp/prod-350299251.aspx",
+      "currency": "EUR",
+      "currentPrice": 699.0,
+      "lowestPrice": 699.0,
+      "lowestDate": "2026-06-22",
+      "highestPrice": 699.0,
+      "highestDate": "2026-06-22",
+      "lastChecked": "2026-06-22T00:00:00+00:00",
+      "status": "ok",
+      "message": "Beginprijs (handmatig geverifieerd).",
+      "history": [
+        { "date": "2026-06-22", "price": 699.0 }
+      ]
+    },
+    {
+      "id": "kast-laredoute-socer",
+      "category": "EXTRA KAST",
+      "name": "La Redoute · Console Socer (dubbel gelakt blad)",
+      "url": "https://www.laredoute.be/nl/ppdp/prod-350356087.aspx",
+      "currency": "EUR",
+      "currentPrice": 449.0,
+      "lowestPrice": 449.0,
+      "lowestDate": "2026-06-22",
+      "highestPrice": 449.0,
+      "highestDate": "2026-06-22",
+      "lastChecked": "2026-06-22T00:00:00+00:00",
+      "status": "ok",
+      "message": "Beginprijs (handmatig geverifieerd). 'Vanaf'-prijs.",
+      "history": [
+        { "date": "2026-06-22", "price": 449.0 }
+      ]
+    },
+    {
+      "id": "deco-laredoute-neil",
+      "category": "DECO",
+      "name": "La Redoute · Dekbedovertrek Neil (getuft katoen)",
+      "url": "https://www.laredoute.be/nl/ppdp/prod-350355078.aspx",
+      "currency": "EUR",
+      "currentPrice": 54.99,
+      "lowestPrice": 54.99,
+      "lowestDate": "2026-06-22",
+      "highestPrice": 54.99,
+      "highestDate": "2026-06-22",
+      "lastChecked": "2026-06-22T00:00:00+00:00",
+      "status": "ok",
+      "message": "Beginprijs (handmatig geverifieerd). 'Vanaf'-prijs.",
+      "history": [
+        { "date": "2026-06-22", "price": 54.99 }
+      ]
+    }
+  ]
+}

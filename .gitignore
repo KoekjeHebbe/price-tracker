@@ -1,0 +1,15 @@
+# Transient alert body (regenerated each run; never committed)
+ALERT_BODY.md
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db

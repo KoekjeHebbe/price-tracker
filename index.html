@@ -1,0 +1,328 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prijstracker</title>
+<style>
+  :root {
+    --bg: #f4efe7;
+    --surface: #fffdf9;
+    --ink: #211d18;
+    --muted: #837a6e;
+    --faint: #a89e90;
+    --line: #e7ded1;
+    --line-strong: #d8ccb9;
+    --accent: #9a6b4f;     /* walnut */
+    --good: #3f7d54;       /* at-lowest green */
+    --good-bg: #e8f1e9;
+    --warn: #b07d22;       /* stale */
+    --up: #b5573f;         /* above lowest */
+    --shadow: 0 1px 2px rgba(40,30,20,.05), 0 8px 24px -16px rgba(40,30,20,.18);
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.5;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 940px; margin: 0 auto; padding: clamp(24px, 5vw, 56px) 20px 72px; }
+
+  /* Header */
+  .kicker {
+    font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin: 0 0 10px;
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 600; letter-spacing: -.01em;
+    font-size: clamp(30px, 6vw, 44px); line-height: 1.08; margin: 0 0 12px;
+  }
+  .sub { color: var(--muted); margin: 0; max-width: 56ch; }
+  .sub strong { color: var(--ink); font-weight: 600; }
+
+  /* Summary strip */
+  .summary {
+    display: flex; flex-wrap: wrap; gap: 10px 28px; align-items: baseline;
+    margin: 26px 0 8px; padding: 16px 20px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 14px; box-shadow: var(--shadow);
+  }
+  .stat { display: flex; flex-direction: column; gap: 2px; }
+  .stat .label { font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
+  .stat .value { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .stat .value.good { color: var(--good); }
+  .updated { color: var(--faint); font-size: 13px; margin: 12px 2px 0; }
+
+  /* Sections */
+  .section { margin-top: 40px; }
+  .section > h2 {
+    font-size: 12.5px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted); font-weight: 700; margin: 0 0 14px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--line-strong);
+  }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  @media (min-width: 640px) { .grid { grid-template-columns: 1fr 1fr; } }
+
+  /* Card */
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    padding: 18px 18px 16px; box-shadow: var(--shadow);
+    display: flex; flex-direction: column; min-height: 0;
+  }
+  .card.is-lowest { border-color: #bcd9c3; }
+  .card.is-stale { background: #fffdf6; }
+  .name {
+    font-family: var(--serif); font-size: 17.5px; line-height: 1.25; font-weight: 600;
+    margin: 0 0 14px; color: var(--ink); text-decoration: none;
+    display: inline-flex; align-items: flex-start; gap: 6px;
+  }
+  .name:hover { color: var(--accent); }
+  .name .ext { color: var(--faint); font-size: 13px; flex: none; margin-top: 3px; }
+  .name:hover .ext { color: var(--accent); }
+
+  .price-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+  .price-now {
+    font-size: 30px; font-weight: 700; letter-spacing: -.01em;
+    font-variant-numeric: tabular-nums; line-height: 1;
+  }
+  .price-now .pending { color: var(--faint); font-weight: 500; font-size: 22px; }
+
+  .badge {
+    font-size: 11.5px; font-weight: 600; letter-spacing: .02em;
+    padding: 4px 9px; border-radius: 999px; white-space: nowrap;
+  }
+  .badge.lowest { color: var(--good); background: var(--good-bg); }
+  .badge.above { color: var(--up); background: #f7e9e4; }
+
+  .spark { margin: 2px 0 14px; height: 38px; }
+  .spark svg { display: block; width: 100%; height: 38px; overflow: visible; }
+
+  .lowline {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+    padding-top: 12px; border-top: 1px dashed var(--line-strong);
+    font-size: 13.5px; color: var(--muted);
+  }
+  .lowline .lo-val { font-weight: 700; color: var(--good); font-variant-numeric: tabular-nums; }
+  .lowline .lo-date { color: var(--faint); }
+
+  .foot { margin-top: 12px; font-size: 12px; color: var(--faint); display: flex; align-items: center; gap: 7px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--good); flex: none; }
+  .dot.stale { background: var(--warn); }
+  .dot.pending { background: var(--faint); }
+
+  .foretext { font-size: 12.5px; color: var(--warn); margin-top: 6px; }
+
+  footer.page { margin-top: 48px; color: var(--faint); font-size: 12.5px; text-align: center; }
+  footer.page a { color: var(--accent); }
+  .err { color: var(--up); }
+
+  /* Password gate (light obfuscation — see README) */
+  .gate { position: fixed; inset: 0; z-index: 50; background: var(--bg); display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .gate.hidden { display: none; }
+  .gate-card { width: 100%; max-width: 340px; text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); padding: 28px 26px; }
+  .gate-card h2 { font-family: var(--serif); font-weight: 600; font-size: 22px; margin: 4px 0 16px; }
+  .gate-card input { width: 100%; padding: 11px 13px; font-size: 16px; color: var(--ink); background: #fff; border: 1px solid var(--line-strong); border-radius: 10px; }
+  .gate-card input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  .gate-card button { width: 100%; margin-top: 12px; padding: 11px 13px; font-size: 15px; font-weight: 600; color: #fff; background: var(--accent); border: 0; border-radius: 10px; cursor: pointer; }
+  .gate-card button:hover { background: #855a41; }
+  .gate-err { color: var(--up); font-size: 13px; min-height: 18px; margin: 10px 0 0; }
+  .gate-hint { color: var(--faint); font-size: 11.5px; margin: 14px 0 0; }
+</style>
+
+<div class="gate" id="gate">
+  <form class="gate-card" id="gate-form">
+    <p class="kicker">Prijstracker</p>
+    <h2>Vergrendeld</h2>
+    <input id="gate-input" type="password" placeholder="Wachtwoord" autocomplete="current-password" autofocus />
+    <button type="submit">Ontgrendelen</button>
+    <p class="gate-err" id="gate-err"></p>
+    <p class="gate-hint">Lichte afscherming.</p>
+  </form>
+</div>
+
+<div class="wrap">
+  <header>
+    <p class="kicker">Prijstracker</p>
+    <h1 id="title">Meubelprijzen</h1>
+    <p class="sub" id="intro">De laagste prijs van elk item sinds de startdatum. Dagelijks automatisch bijgewerkt.</p>
+  </header>
+
+  <div class="summary" id="summary" hidden>
+    <div class="stat"><span class="label">Items</span><span class="value" id="s-count">–</span></div>
+    <div class="stat"><span class="label">Nu op laagste</span><span class="value good" id="s-atlow">–</span></div>
+    <div class="stat"><span class="label">Totaal nu</span><span class="value" id="s-now">–</span></div>
+    <div class="stat"><span class="label">Laagste totaal ooit</span><span class="value good" id="s-low">–</span></div>
+  </div>
+  <p class="updated" id="updated"></p>
+
+  <main id="content"><p class="sub">Laden…</p></main>
+
+  <footer class="page">
+    Automatisch bijgewerkt via GitHub Actions · geen API-tokens ·
+    <a id="repo-foot" href="#">handmatig verversen</a>
+  </footer>
+</div>
+
+<script>
+const EUR = new Intl.NumberFormat("nl-BE", { style: "currency", currency: "EUR" });
+const EUR0 = new Intl.NumberFormat("nl-BE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+const fmtMoney = (n) => n == null ? "—" : EUR.format(n);
+
+function fmtDate(iso) {
+  if (!iso) return "—";
+  const dateOnly = iso.length <= 10;
+  // Pin calendar dates to UTC so the day never shifts by viewer timezone;
+  // full timestamps are shown in Brussels wall-clock (the data's timezone).
+  const d = new Date(dateOnly ? iso + "T00:00:00Z" : iso);
+  return new Intl.DateTimeFormat("nl-BE", {
+    day: "numeric", month: "short", year: "numeric",
+    timeZone: dateOnly ? "UTC" : "Europe/Brussels",
+  }).format(d);
+}
+function fmtDateTime(iso) {
+  if (!iso) return "—";
+  return new Intl.DateTimeFormat("nl-BE", {
+    day: "numeric", month: "short", year: "numeric",
+    hour: "2-digit", minute: "2-digit", timeZone: "Europe/Brussels",
+  }).format(new Date(iso));
+}
+
+function sparkline(history) {
+  const pts = history.filter(h => typeof h.price === "number");
+  const W = 220, H = 38, pad = 4;
+  if (pts.length < 2) {
+    // Just started tracking: show a flat baseline + start marker so the card isn't empty.
+    const midY = (H / 2).toFixed(1);
+    return `<div class="spark"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M${pad},${midY} L${W - pad},${midY}" fill="none" stroke="var(--line-strong)" stroke-width="1.4" stroke-dasharray="2 4" stroke-linecap="round"/>
+      <circle cx="${pad}" cy="${midY}" r="2.8" fill="var(--good)"/>
+    </svg></div>`;
+  }
+  const prices = pts.map(p => p.price);
+  const min = Math.min(...prices), max = Math.max(...prices);
+  const span = (max - min) || 1;
+  const x = i => pad + (i * (W - 2 * pad)) / (pts.length - 1);
+  const y = v => pad + (H - 2 * pad) * (1 - (v - min) / span);
+  const d = pts.map((p, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(p.price).toFixed(1)}`).join(" ");
+  const minI = prices.indexOf(min);
+  return `<div class="spark"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
+    <path d="${d}" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${x(minI).toFixed(1)}" cy="${y(min).toFixed(1)}" r="2.8" fill="var(--good)"/>
+  </svg></div>`;
+}
+
+function card(it) {
+  const has = typeof it.currentPrice === "number";
+  const atLowest = has && typeof it.lowestPrice === "number" && it.currentPrice <= it.lowestPrice + 0.001;
+  const stale = it.status === "error";
+  const pending = it.status === "pending" || !has;
+
+  let badge = "";
+  if (has && atLowest) badge = `<span class="badge lowest">Laagste tot nu toe</span>`;
+  else if (has && typeof it.lowestPrice === "number") {
+    const diff = it.currentPrice - it.lowestPrice;
+    const pct = it.lowestPrice ? Math.round((diff / it.lowestPrice) * 100) : 0;
+    const diffStr = diff < 1 ? EUR.format(diff) : EUR0.format(diff);  // avoid a misleading "+€0"
+    badge = `<span class="badge above">+${diffStr}${pct ? ` · ${pct}%` : ""}</span>`;
+  }
+
+  const priceHtml = has
+    ? fmtMoney(it.currentPrice)
+    : `<span class="pending">nog onbekend</span>`;
+
+  const lowHtml = (has && typeof it.lowestPrice === "number")
+    ? `<div class="lowline">
+         <span>Laagste sinds start</span>
+         <span><span class="lo-val">${fmtMoney(it.lowestPrice)}</span> <span class="lo-date">${fmtDate(it.lowestDate)}</span></span>
+       </div>`
+    : "";
+
+  let dotClass = "dot", footText;
+  if (pending) { dotClass += " pending"; footText = "Wacht op eerste ophaling"; }
+  else if (stale) { dotClass += " stale"; footText = `Niet kunnen ophalen · prijs van ${fmtDateTime(it.lastChecked)}`; }
+  else { footText = `Gecontroleerd ${fmtDateTime(it.lastChecked)}`; }
+
+  const note = (it.message && (stale || pending)) ? `<div class="foretext">${it.message}</div>` : "";
+
+  const cls = ["card"];
+  if (has && atLowest) cls.push("is-lowest");
+  if (stale || pending) cls.push("is-stale");
+
+  return `<article class="${cls.join(" ")}">
+    <a class="name" href="${it.url}" target="_blank" rel="noopener">${it.name} <span class="ext">↗</span></a>
+    <div class="price-row"><div class="price-now">${priceHtml}</div>${badge}</div>
+    ${has ? sparkline(it.history || []) : ""}
+    ${lowHtml}
+    <div class="foot"><span class="${dotClass}"></span>${footText}</div>
+    ${note}
+  </article>`;
+}
+
+function render(data) {
+  document.getElementById("intro").innerHTML =
+    `De laagste prijs van elk item <strong>sinds ${fmtDate(data.trackingStartDate)}</strong>. Dagelijks automatisch bijgewerkt.`;
+  document.getElementById("updated").textContent = "Laatst bijgewerkt: " + fmtDateTime(data.lastUpdated);
+
+  const items = data.items || [];
+  // Summary
+  const priced = items.filter(i => typeof i.currentPrice === "number");
+  const totalNow = priced.reduce((s, i) => s + i.currentPrice, 0);
+  const totalLow = items.reduce((s, i) => s + (typeof i.lowestPrice === "number" ? i.lowestPrice : (typeof i.currentPrice === "number" ? i.currentPrice : 0)), 0);
+  const atLow = priced.filter(i => typeof i.lowestPrice === "number" && i.currentPrice <= i.lowestPrice + 0.001).length;
+  document.getElementById("s-count").textContent = items.length;
+  document.getElementById("s-atlow").textContent = `${atLow}/${priced.length}`;
+  document.getElementById("s-now").textContent = priced.length ? EUR0.format(totalNow) : "—";
+  document.getElementById("s-low").textContent = priced.length ? EUR0.format(totalLow) : "—";
+  document.getElementById("summary").hidden = false;
+
+  // Group by category, preserving first-seen order
+  const order = [];
+  const groups = {};
+  for (const it of items) {
+    if (!groups[it.category]) { groups[it.category] = []; order.push(it.category); }
+    groups[it.category].push(it);
+  }
+  document.getElementById("content").innerHTML = order.map(cat =>
+    `<section class="section"><h2>${cat}</h2><div class="grid">${groups[cat].map(card).join("")}</div></section>`
+  ).join("");
+}
+
+function init() {
+  fetch("./data/prices.json?t=" + Date.now())
+    .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    .then(render)
+    .catch(e => {
+      document.getElementById("content").innerHTML =
+        `<p class="sub err">Kon prijsgegevens niet laden (${e.message}). Staat <code>data/prices.json</code> in de repo?</p>`;
+    });
+}
+
+/* --- Eenvoudige wachtwoord-poort (lichte afscherming; zie README) --- */
+const PW_HASH = "f52fbd32b2b3b86ff88ef6c490628285f482af15ddcb29541f94bcf526a3f6c7"; // sha256("hunter2")
+async function sha256Hex(str) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+function unlock() {
+  sessionStorage.setItem("pt_unlocked", "1");
+  document.getElementById("gate").classList.add("hidden");
+  init();
+}
+(function gateBoot() {
+  if (sessionStorage.getItem("pt_unlocked") === "1") { unlock(); return; }
+  const input = document.getElementById("gate-input");
+  const errEl = document.getElementById("gate-err");
+  document.getElementById("gate-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    let ok = false;
+    try { ok = (await sha256Hex(input.value)) === PW_HASH; }
+    catch (_) { ok = (input.value === "hunter2"); } // niet-veilige context (file://) fallback
+    if (ok) { unlock(); }
+    else { errEl.textContent = "Onjuist wachtwoord."; input.select(); }
+  });
+})();
+</script>
