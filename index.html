@@ -75,6 +75,13 @@
   }
   .card.is-lowest { border-color: #bcd9c3; }
   .card.is-stale { background: #fffdf6; }
+
+  /* Product image + mini-gallery */
+  .thumb { width: 100%; aspect-ratio: 16 / 10; border-radius: 12px; overflow: hidden; background: #efe9df; border: 1px solid var(--line); margin-bottom: 14px; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery { display: flex; gap: 6px; margin: -8px 0 12px; flex-wrap: wrap; }
+  .gallery img { width: 42px; height: 42px; object-fit: cover; border-radius: 7px; border: 1px solid var(--line); cursor: pointer; opacity: .65; transition: opacity .12s; }
+  .gallery img:hover { opacity: 1; border-color: var(--accent); }
   .name {
     font-family: var(--serif); font-size: 17.5px; line-height: 1.25; font-weight: 600;
     margin: 0 0 14px; color: var(--ink); text-decoration: none;
@@ -202,6 +209,13 @@ function fmtDateTime(iso) {
   }).format(new Date(iso));
 }
 
+function imgFallback(el) {
+  // Direct load failed (often cross-origin hotlink protection) → retry once via a
+  // free image proxy; if that also fails, drop the image cleanly.
+  if (el.dataset.p) { const t = el.closest(".thumb"); if (t) t.remove(); else el.remove(); }
+  else { el.dataset.p = "1"; el.src = "https://images.weserv.nl/?url=" + encodeURIComponent(el.src.replace(/^https?:\/\//, "")); }
+}
+
 function sparkline(history) {
   const pts = history.filter(h => typeof h.price === "number");
   const W = 220, H = 38, pad = 4;
@@ -271,11 +285,20 @@ function card(it) {
       }).join("")}</div>`
     : "";
 
+  const imgs = Array.isArray(it.images) ? it.images.filter(Boolean) : [];
+  const imgHtml = imgs.length
+    ? `<div class="thumb"><img class="main-img" src="${imgs[0]}" alt="${it.name}" loading="lazy" referrerpolicy="no-referrer" onerror="imgFallback(this)"></div>`
+      + (imgs.length > 1
+          ? `<div class="gallery">${imgs.slice(0, 5).map(u => `<img src="${u}" loading="lazy" referrerpolicy="no-referrer" onerror="imgFallback(this)" onclick="this.closest('.card').querySelector('.main-img').src=this.src">`).join("")}</div>`
+          : "")
+    : "";
+
   const cls = ["card"];
   if (has && atLowest) cls.push("is-lowest");
   if (stale || pending) cls.push("is-stale");
 
   return `<article class="${cls.join(" ")}">
+    ${imgHtml}
     <a class="name" href="${it.url}" target="_blank" rel="noopener">${it.name} <span class="ext">↗</span></a>
     <div class="price-row"><div class="price-now">${fromLabel}${priceHtml}</div>${badge}</div>
     ${has ? sparkline(it.history || []) : ""}

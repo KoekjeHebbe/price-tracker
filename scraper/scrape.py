@@ -22,7 +22,7 @@ import re
 import sys
 from datetime import datetime
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 
 try:
     from zoneinfo import ZoneInfo
@@ -165,6 +165,54 @@ def extract_price(page):
     return None, None
 
 
+def extract_images(page, base_url):
+    """Collect product image URLs from JSON-LD `image` + og:image / twitter:image."""
+    urls = []
+    try:
+        scripts = page.eval_on_selector_all(
+            'script[type="application/ld+json"]', "els => els.map(e => e.textContent)")
+    except Exception:
+        scripts = []
+    for raw in scripts:
+        try:
+            data = json.loads((raw or "").strip().rstrip(";"))
+        except Exception:
+            continue
+        for obj in _walk(data):
+            img = obj.get("image")
+            if not img:
+                continue
+            for x in (img if isinstance(img, list) else [img]):
+                if isinstance(x, str):
+                    urls.append(x)
+                elif isinstance(x, dict) and x.get("url"):
+                    urls.append(x["url"])
+    for sel in ('meta[property="og:image"]',
+                'meta[property="og:image:secure_url"]',
+                'meta[name="twitter:image"]'):
+        try:
+            for el in page.query_selector_all(sel):
+                c = el.get_attribute("content")
+                if c:
+                    urls.append(c)
+        except Exception:
+            pass
+    out = []
+    for u in urls:
+        if not u:
+            continue
+        u = u.strip()
+        if u.startswith("//"):
+            u = "https:" + u
+        elif u.startswith("/"):
+            u = urljoin(base_url, u)
+        if u.startswith("http") and u not in out:
+            out.append(u)
+        if len(out) >= 6:
+            break
+    return out
+
+
 def warm_up(context, host, warmed):
     """Visit a site's homepage once to acquire bot-protection cookies (Akamai etc.)
     and dismiss the cookie banner, so subsequent product pages aren't 403'd."""
@@ -228,7 +276,8 @@ def scrape_url(context, url):
 
             price, method = extract_price(page)
             if price is not None:
-                return {"price": price, "method": method, "status": "ok", "message": ""}
+                return {"price": price, "method": method, "status": "ok", "message": "",
+                        "images": extract_images(page, url)}
 
             if attempt == 1:
                 page.wait_for_timeout(2500)  # let late JS-injected data settle, retry once
@@ -270,6 +319,8 @@ def merge(existing, item, scrape, today, now_iso, url):
         rec["message"] = scrape["message"]
         rec["lastChecked"] = now_iso
 
+    rec["images"] = (scrape.get("images") if scrape.get("status") == "ok" and scrape.get("images")
+                     else (existing.get("images") if existing else None)) or []
     rec["history"] = history
     if history:
         lo = min(history, key=lambda h: h["price"])
@@ -299,11 +350,13 @@ def scrape_config_item(context, item, warmed):
             snaps.append({
                 "label": v.get("label", ""), "url": v["url"],
                 "currentPrice": r["price"], "status": r["status"], "message": r["message"],
+                "images": r.get("images", []),
             })
         priced = [s for s in snaps if s["status"] == "ok" and s["currentPrice"] is not None]
         if priced:
             best = min(priced, key=lambda s: s["currentPrice"])
-            result = {"price": best["currentPrice"], "method": "variants", "status": "ok", "message": ""}
+            result = {"price": best["currentPrice"], "method": "variants", "status": "ok", "message": "",
+                      "images": best.get("images", [])}
             return result, snaps, best["url"]
         any_err = any(s["status"] == "error" for s in snaps)
         msg = "; ".join(f"{s['label']}: {s['message']}" for s in snaps if s["message"]) or "Geen prijs gevonden."
