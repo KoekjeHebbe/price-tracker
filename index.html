@@ -113,6 +113,7 @@
   .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--good); flex: none; }
   .dot.stale { background: var(--warn); }
   .dot.pending { background: var(--faint); }
+  .dot.manual { background: #6b8cae; }
 
   .foretext { font-size: 12.5px; color: var(--warn); margin-top: 6px; }
 
@@ -229,6 +230,7 @@ function card(it) {
   const has = typeof it.currentPrice === "number";
   const atLowest = has && typeof it.lowestPrice === "number" && it.currentPrice <= it.lowestPrice + 0.001;
   const stale = it.status === "error";
+  const manual = it.status === "manual";
   const pending = it.status === "pending" || !has;
 
   let badge = "";
@@ -253,6 +255,7 @@ function card(it) {
 
   let dotClass = "dot", footText;
   if (pending) { dotClass += " pending"; footText = "Wacht op eerste ophaling"; }
+  else if (manual) { dotClass += " manual"; footText = `Handmatig bijgehouden${it.lastChecked ? " · " + fmtDate(it.lastChecked) : ""}`; }
   else if (stale) { dotClass += " stale"; footText = `Niet kunnen ophalen · prijs van ${fmtDateTime(it.lastChecked)}`; }
   else { footText = `Gecontroleerd ${fmtDateTime(it.lastChecked)}`; }
 

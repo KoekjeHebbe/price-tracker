@@ -69,8 +69,8 @@
       "url": "https://www.laredoute.be/nl/ppdp/prod-351187309.aspx?docid=868526",
       "currency": "EUR",
       "currentPrice": 679.0,
-      "status": "error",
-      "message": "HTTP 403",
+      "status": "manual",
+      "message": "Handmatig bijgehouden (shop blokkeert auto-scraping).",
       "lastChecked": "2026-06-22T21:05:16+02:00",
       "history": [
         {
@@ -90,8 +90,8 @@
       "url": "https://www.laredoute.be/nl/ppdp/prod-350299251.aspx",
       "currency": "EUR",
       "currentPrice": 699.0,
-      "status": "error",
-      "message": "HTTP 403",
+      "status": "manual",
+      "message": "Handmatig bijgehouden (shop blokkeert auto-scraping).",
       "lastChecked": "2026-06-22T21:05:16+02:00",
       "history": [
         {
@@ -111,8 +111,8 @@
       "url": "https://www.laredoute.be/nl/ppdp/prod-350356087.aspx",
       "currency": "EUR",
       "currentPrice": 449.0,
-      "status": "error",
-      "message": "HTTP 403",
+      "status": "manual",
+      "message": "Handmatig bijgehouden (shop blokkeert auto-scraping).",
       "lastChecked": "2026-06-22T21:05:16+02:00",
       "history": [
         {
@@ -132,8 +132,8 @@
       "url": "https://www.laredoute.be/nl/ppdp/prod-350355078.aspx",
       "currency": "EUR",
       "currentPrice": 54.99,
-      "status": "error",
-      "message": "HTTP 403",
+      "status": "manual",
+      "message": "Handmatig bijgehouden (shop blokkeert auto-scraping).",
       "lastChecked": "2026-06-22T21:05:16+02:00",
       "history": [
         {

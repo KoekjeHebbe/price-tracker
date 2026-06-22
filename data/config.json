@@ -22,25 +22,29 @@
       "id": "tafel-laredoute-amorino",
       "category": "TAFEL",
       "name": "La Redoute · Uittrekbare eettafel Amorino (walnootfineer)",
-      "url": "https://www.laredoute.be/nl/ppdp/prod-351187309.aspx?docid=868526"
+      "url": "https://www.laredoute.be/nl/ppdp/prod-351187309.aspx?docid=868526",
+      "manual": true
     },
     {
       "id": "kast-laredoute-molna",
       "category": "EXTRA KAST",
       "name": "La Redoute · Buisvormige console Molna",
-      "url": "https://www.laredoute.be/nl/ppdp/prod-350299251.aspx"
+      "url": "https://www.laredoute.be/nl/ppdp/prod-350299251.aspx",
+      "manual": true
     },
     {
       "id": "kast-laredoute-socer",
       "category": "EXTRA KAST",
       "name": "La Redoute · Console Socer (dubbel gelakt blad)",
-      "url": "https://www.laredoute.be/nl/ppdp/prod-350356087.aspx"
+      "url": "https://www.laredoute.be/nl/ppdp/prod-350356087.aspx",
+      "manual": true
     },
     {
       "id": "deco-laredoute-neil",
       "category": "DECO",
       "name": "La Redoute · Dekbedovertrek Neil (getuft katoen)",
-      "url": "https://www.laredoute.be/nl/ppdp/prod-350355078.aspx"
+      "url": "https://www.laredoute.be/nl/ppdp/prod-350355078.aspx",
+      "manual": true
     }
   ]
 }

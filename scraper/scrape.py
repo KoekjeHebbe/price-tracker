@@ -385,6 +385,28 @@ def main():
         )
         for item in config["items"]:
             print(f"[scrape] {item['id']} … ", end="", flush=True)
+            if item.get("manual"):
+                # Manually-tracked item (shop blocks automated scraping): never
+                # scrape it; carry the existing record forward, just flag it 'manual'.
+                ex = existing_by_id.get(item["id"]) or {}
+                rec = dict(ex)
+                rec["id"], rec["category"], rec["name"] = item["id"], item["category"], item["name"]
+                rec["url"] = item.get("url", ex.get("url", ""))
+                rec.setdefault("currency", config.get("currency", "EUR"))
+                rec.setdefault("currentPrice", None)
+                rec.setdefault("history", [])
+                rec.setdefault("lowestPrice", rec.get("currentPrice"))
+                rec.setdefault("lowestDate", None)
+                rec.setdefault("highestPrice", rec.get("currentPrice"))
+                rec.setdefault("highestDate", None)
+                rec["status"] = "manual"
+                rec["message"] = "Handmatig bijgehouden (shop blokkeert auto-scraping)."
+                updated_items.append(rec)
+                ps = f"€{rec['currentPrice']}" if rec.get("currentPrice") is not None else "—"
+                print(f"MANUAL {ps} (overgeslagen)")
+                summary.append((item["id"], "MANUAL", ps))
+                continue
+
             result, snaps, eff_url = scrape_config_item(context, item, warmed)
             existing = existing_by_id.get(item["id"])
             rec = merge(existing, item, result, today, now_iso, eff_url)
