@@ -5,64 +5,6 @@
   "lastUpdated": "2026-06-22T21:05:16+02:00",
   "items": [
     {
-      "id": "tv-westwing-robyn",
-      "category": "TV MEUBEL",
-      "name": "Westwing · Metalen tv-meubel Robyn (Maven lowboard)",
-      "url": "https://www.westwing.be/maven-lowboard-metal-door-beige0425-2-texture_pearl-white-en-25wes98013.html?simple=DEQ25WES98013-771537",
-      "currency": "EUR",
-      "currentPrice": 899.0,
-      "status": "ok",
-      "message": "",
-      "lastChecked": "2026-06-22T21:05:16+02:00",
-      "history": [
-        {
-          "date": "2026-06-22",
-          "price": 899.0
-        }
-      ],
-      "lowestPrice": 899.0,
-      "lowestDate": "2026-06-22",
-      "highestPrice": 899.0,
-      "highestDate": "2026-06-22"
-    },
-    {
-      "id": "tv-fonq-glinta",
-      "category": "TV MEUBEL",
-      "name": "fonQ · by fonQ Glinta tv-meubel (NL)",
-      "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-creme-331698",
-      "currency": "EUR",
-      "currentPrice": 348.95,
-      "status": "ok",
-      "message": "bron: variants",
-      "lastChecked": "2026-06-22T21:05:16+02:00",
-      "history": [
-        {
-          "date": "2026-06-22",
-          "price": 348.95
-        }
-      ],
-      "lowestPrice": 348.95,
-      "lowestDate": "2026-06-22",
-      "highestPrice": 348.95,
-      "highestDate": "2026-06-22",
-      "variants": [
-        {
-          "label": "Crème",
-          "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-creme-331698",
-          "currentPrice": 348.95,
-          "status": "ok",
-          "message": ""
-        },
-        {
-          "label": "Chocolade bruin",
-          "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-chocolade-bruin-331697",
-          "currentPrice": 348.95,
-          "status": "ok",
-          "message": ""
-        }
-      ]
-    },
-    {
       "id": "tafel-laredoute-amorino",
       "category": "TAFEL",
       "name": "La Redoute · Uittrekbare eettafel Amorino (walnootfineer)",
@@ -72,15 +14,74 @@
       "status": "manual",
       "message": "Handmatig bijgehouden (shop blokkeert auto-scraping).",
       "lastChecked": "2026-06-22T21:05:16+02:00",
-      "history": [
-        {
-          "date": "2026-06-22",
-          "price": 679.0
-        }
-      ],
+      "history": [ { "date": "2026-06-22", "price": 679.0 } ],
       "lowestPrice": 679.0,
       "lowestDate": "2026-06-22",
       "highestPrice": 679.0,
+      "highestDate": "2026-06-22"
+    },
+    {
+      "id": "tafel-kavehome-milian",
+      "category": "TAFEL",
+      "name": "Kave Home · Milian ovale uitschuiftafel 170-320×100",
+      "url": "https://kavehome.com/be/nl/p/milian-ovale-uitschuifbare-eettafel-170-320-x-100-cm",
+      "currency": "EUR",
+      "currentPrice": null,
+      "status": "pending",
+      "message": "Nog niet opgehaald (Kave Home rate-limit / blokkade).",
+      "lastChecked": null,
+      "history": [],
+      "lowestPrice": null,
+      "lowestDate": null,
+      "highestPrice": null,
+      "highestDate": null
+    },
+    {
+      "id": "tafel-rowico-tyler",
+      "category": "TAFEL",
+      "name": "Rowico · Tyler eettafel bruin 170×105",
+      "url": "https://rowicohome.com/nl/meubelen/tafels/eettafels/tyler-eettafel-bruin-121205",
+      "currency": "EUR",
+      "currentPrice": 1299.0,
+      "status": "ok",
+      "message": "Beginprijs (handmatig geverifieerd).",
+      "lastChecked": "2026-06-22T00:00:00+00:00",
+      "history": [ { "date": "2026-06-22", "price": 1299.0 } ],
+      "lowestPrice": 1299.0,
+      "lowestDate": "2026-06-22",
+      "highestPrice": 1299.0,
+      "highestDate": "2026-06-22"
+    },
+    {
+      "id": "tafel-rowico-filippa",
+      "category": "TAFEL",
+      "name": "Rowico · Filippa eettafel donkerbruin 170×105",
+      "url": "https://rowicohome.com/nl/meubelen/tafels/eettafels/filippa-eettafel-donkerbruin-117633",
+      "currency": "EUR",
+      "currentPrice": 1249.0,
+      "status": "ok",
+      "message": "Beginprijs (handmatig geverifieerd).",
+      "lastChecked": "2026-06-22T00:00:00+00:00",
+      "history": [ { "date": "2026-06-22", "price": 1249.0 } ],
+      "lowestPrice": 1249.0,
+      "lowestDate": "2026-06-22",
+      "highestPrice": 1249.0,
+      "highestDate": "2026-06-22"
+    },
+    {
+      "id": "tafel-savokse-gunni",
+      "category": "TAFEL",
+      "name": "Sav & Økse · Gunni uitschuiftafel walnoot",
+      "url": "https://www.sav-okse.nl/nl/gunni-tafel-uitschuifbaar-walnoot.html",
+      "currency": "EUR",
+      "currentPrice": 1939.0,
+      "status": "ok",
+      "message": "Beginprijs (handmatig geverifieerd).",
+      "lastChecked": "2026-06-22T00:00:00+00:00",
+      "history": [ { "date": "2026-06-22", "price": 1939.0 } ],
+      "lowestPrice": 1939.0,
+      "lowestDate": "2026-06-22",
+      "highestPrice": 1939.0,
       "highestDate": "2026-06-22"
     },
     {
@@ -93,12 +94,7 @@
       "status": "manual",
       "message": "Handmatig bijgehouden (shop blokkeert auto-scraping).",
       "lastChecked": "2026-06-22T21:05:16+02:00",
-      "history": [
-        {
-          "date": "2026-06-22",
-          "price": 699.0
-        }
-      ],
+      "history": [ { "date": "2026-06-22", "price": 699.0 } ],
       "lowestPrice": 699.0,
       "lowestDate": "2026-06-22",
       "highestPrice": 699.0,
@@ -114,12 +110,7 @@
       "status": "manual",
       "message": "Handmatig bijgehouden (shop blokkeert auto-scraping).",
       "lastChecked": "2026-06-22T21:05:16+02:00",
-      "history": [
-        {
-          "date": "2026-06-22",
-          "price": 449.0
-        }
-      ],
+      "history": [ { "date": "2026-06-22", "price": 449.0 } ],
       "lowestPrice": 449.0,
       "lowestDate": "2026-06-22",
       "highestPrice": 449.0,
@@ -135,16 +126,47 @@
       "status": "manual",
       "message": "Handmatig bijgehouden (shop blokkeert auto-scraping).",
       "lastChecked": "2026-06-22T21:05:16+02:00",
-      "history": [
-        {
-          "date": "2026-06-22",
-          "price": 54.99
-        }
-      ],
+      "history": [ { "date": "2026-06-22", "price": 54.99 } ],
       "lowestPrice": 54.99,
       "lowestDate": "2026-06-22",
       "highestPrice": 54.99,
       "highestDate": "2026-06-22"
+    },
+    {
+      "id": "tv-westwing-robyn",
+      "category": "TV MEUBEL",
+      "name": "Westwing · Metalen tv-meubel Robyn (Maven lowboard)",
+      "url": "https://www.westwing.be/maven-lowboard-metal-door-beige0425-2-texture_pearl-white-en-25wes98013.html?simple=DEQ25WES98013-771537",
+      "currency": "EUR",
+      "currentPrice": 899.0,
+      "status": "ok",
+      "message": "",
+      "lastChecked": "2026-06-22T21:05:16+02:00",
+      "history": [ { "date": "2026-06-22", "price": 899.0 } ],
+      "lowestPrice": 899.0,
+      "lowestDate": "2026-06-22",
+      "highestPrice": 899.0,
+      "highestDate": "2026-06-22"
+    },
+    {
+      "id": "tv-fonq-glinta",
+      "category": "TV MEUBEL",
+      "name": "fonQ · by fonQ Glinta tv-meubel (NL)",
+      "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-creme-331698",
+      "currency": "EUR",
+      "currentPrice": 348.95,
+      "status": "ok",
+      "message": "bron: variants",
+      "lastChecked": "2026-06-22T21:05:16+02:00",
+      "history": [ { "date": "2026-06-22", "price": 348.95 } ],
+      "lowestPrice": 348.95,
+      "lowestDate": "2026-06-22",
+      "highestPrice": 348.95,
+      "highestDate": "2026-06-22",
+      "variants": [
+        { "label": "Crème", "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-creme-331698", "currentPrice": 348.95, "status": "ok", "message": "" },
+        { "label": "Chocolade bruin", "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-chocolade-bruin-331697", "currentPrice": 348.95, "status": "ok", "message": "" }
+      ]
     }
   ]
 }

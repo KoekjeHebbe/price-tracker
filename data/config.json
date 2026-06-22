@@ -4,26 +4,35 @@
   "timezone": "Europe/Brussels",
   "items": [
     {
-      "id": "tv-westwing-robyn",
-      "category": "TV MEUBEL",
-      "name": "Westwing · Metalen tv-meubel Robyn (Maven lowboard)",
-      "url": "https://www.westwing.be/maven-lowboard-metal-door-beige0425-2-texture_pearl-white-en-25wes98013.html?simple=DEQ25WES98013-771537"
-    },
-    {
-      "id": "tv-fonq-glinta",
-      "category": "TV MEUBEL",
-      "name": "fonQ · by fonQ Glinta tv-meubel (NL)",
-      "variants": [
-        { "label": "Crème", "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-creme-331698" },
-        { "label": "Chocolade bruin", "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-chocolade-bruin-331697" }
-      ]
-    },
-    {
       "id": "tafel-laredoute-amorino",
       "category": "TAFEL",
       "name": "La Redoute · Uittrekbare eettafel Amorino (walnootfineer)",
       "url": "https://www.laredoute.be/nl/ppdp/prod-351187309.aspx?docid=868526",
       "manual": true
+    },
+    {
+      "id": "tafel-kavehome-milian",
+      "category": "TAFEL",
+      "name": "Kave Home · Milian ovale uitschuiftafel 170-320×100",
+      "url": "https://kavehome.com/be/nl/p/milian-ovale-uitschuifbare-eettafel-170-320-x-100-cm"
+    },
+    {
+      "id": "tafel-rowico-tyler",
+      "category": "TAFEL",
+      "name": "Rowico · Tyler eettafel bruin 170×105",
+      "url": "https://rowicohome.com/nl/meubelen/tafels/eettafels/tyler-eettafel-bruin-121205"
+    },
+    {
+      "id": "tafel-rowico-filippa",
+      "category": "TAFEL",
+      "name": "Rowico · Filippa eettafel donkerbruin 170×105",
+      "url": "https://rowicohome.com/nl/meubelen/tafels/eettafels/filippa-eettafel-donkerbruin-117633"
+    },
+    {
+      "id": "tafel-savokse-gunni",
+      "category": "TAFEL",
+      "name": "Sav & Økse · Gunni uitschuiftafel walnoot",
+      "url": "https://www.sav-okse.nl/nl/gunni-tafel-uitschuifbaar-walnoot.html"
     },
     {
       "id": "kast-laredoute-molna",
@@ -45,6 +54,21 @@
       "name": "La Redoute · Dekbedovertrek Neil (getuft katoen)",
       "url": "https://www.laredoute.be/nl/ppdp/prod-350355078.aspx",
       "manual": true
+    },
+    {
+      "id": "tv-westwing-robyn",
+      "category": "TV MEUBEL",
+      "name": "Westwing · Metalen tv-meubel Robyn (Maven lowboard)",
+      "url": "https://www.westwing.be/maven-lowboard-metal-door-beige0425-2-texture_pearl-white-en-25wes98013.html?simple=DEQ25WES98013-771537"
+    },
+    {
+      "id": "tv-fonq-glinta",
+      "category": "TV MEUBEL",
+      "name": "fonQ · by fonQ Glinta tv-meubel (NL)",
+      "variants": [
+        { "label": "Crème", "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-creme-331698" },
+        { "label": "Chocolade bruin", "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-chocolade-bruin-331697" }
+      ]
     }
   ]
 }
