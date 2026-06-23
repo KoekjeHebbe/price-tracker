@@ -2,7 +2,7 @@
   "trackingStartDate": "2026-06-22",
   "currency": "EUR",
   "timezone": "Europe/Brussels",
-  "lastUpdated": "2026-06-22T21:05:16+02:00",
+  "lastUpdated": "2026-06-23T11:57:05+02:00",
   "items": [
     {
       "id": "tafel-laredoute-amorino",
@@ -14,8 +14,15 @@
       "status": "manual",
       "message": "Handmatig bijgehouden (shop blokkeert auto-scraping).",
       "lastChecked": "2026-06-22T21:05:16+02:00",
-      "images": [ "https://cdn.laredoute.com/cdn-cgi/image/width=650,height=650,fit=pad,dpr=1/products/a/7/2/a72c84ca266252c8dd20cb6a3d40e744.jpg" ],
-      "history": [ { "date": "2026-06-22", "price": 679.0 } ],
+      "images": [
+        "https://cdn.laredoute.com/cdn-cgi/image/width=650,height=650,fit=pad,dpr=1/products/a/7/2/a72c84ca266252c8dd20cb6a3d40e744.jpg"
+      ],
+      "history": [
+        {
+          "date": "2026-06-22",
+          "price": 679.0
+        }
+      ],
       "lowestPrice": 679.0,
       "lowestDate": "2026-06-22",
       "highestPrice": 679.0,
@@ -29,8 +36,8 @@
       "currency": "EUR",
       "currentPrice": null,
       "status": "pending",
-      "message": "Nog niet opgehaald (Kave Home rate-limit / blokkade).",
-      "lastChecked": null,
+      "message": "HTTP 429",
+      "lastChecked": "2026-06-23T11:57:05+02:00",
       "images": [],
       "history": [],
       "lowestPrice": null,
@@ -45,11 +52,16 @@
       "url": "https://rowicohome.com/nl/meubelen/tafels/eettafels/tyler-eettafel-bruin-121205",
       "currency": "EUR",
       "currentPrice": 1299.0,
-      "status": "ok",
-      "message": "Beginprijs (handmatig geverifieerd).",
-      "lastChecked": "2026-06-22T00:00:00+00:00",
+      "status": "error",
+      "message": "HTTP 403",
+      "lastChecked": "2026-06-23T11:57:05+02:00",
       "images": [],
-      "history": [ { "date": "2026-06-22", "price": 1299.0 } ],
+      "history": [
+        {
+          "date": "2026-06-22",
+          "price": 1299.0
+        }
+      ],
       "lowestPrice": 1299.0,
       "lowestDate": "2026-06-22",
       "highestPrice": 1299.0,
@@ -62,11 +74,16 @@
       "url": "https://rowicohome.com/nl/meubelen/tafels/eettafels/filippa-eettafel-donkerbruin-117633",
       "currency": "EUR",
       "currentPrice": 1249.0,
-      "status": "ok",
-      "message": "Beginprijs (handmatig geverifieerd).",
-      "lastChecked": "2026-06-22T00:00:00+00:00",
+      "status": "error",
+      "message": "HTTP 403",
+      "lastChecked": "2026-06-23T11:57:05+02:00",
       "images": [],
-      "history": [ { "date": "2026-06-22", "price": 1249.0 } ],
+      "history": [
+        {
+          "date": "2026-06-22",
+          "price": 1249.0
+        }
+      ],
       "lowestPrice": 1249.0,
       "lowestDate": "2026-06-22",
       "highestPrice": 1249.0,
@@ -78,14 +95,26 @@
       "name": "Sav & Økse · Gunni uitschuiftafel walnoot",
       "url": "https://www.sav-okse.nl/nl/gunni-tafel-uitschuifbaar-walnoot.html",
       "currency": "EUR",
-      "currentPrice": 1939.0,
+      "currentPrice": 1602.48,
       "status": "ok",
-      "message": "Beginprijs (handmatig geverifieerd).",
-      "lastChecked": "2026-06-22T00:00:00+00:00",
-      "images": [ "https://cdn.webshopapp.com/shops/336719/files/410330529/uitschuifbare-houten-tafel-gunni.jpg" ],
-      "history": [ { "date": "2026-06-22", "price": 1939.0 } ],
-      "lowestPrice": 1939.0,
-      "lowestDate": "2026-06-22",
+      "message": "",
+      "lastChecked": "2026-06-23T11:57:05+02:00",
+      "images": [
+        "https://cdn.webshopapp.com/shops/336719/files/410330529/300x250x2/sav-kse-uitschuifbare-houten-tafel-gunni.jpg",
+        "https://cdn.webshopapp.com/shops/336719/files/410330529/sav-kse-uitschuifbare-houten-tafel-gunni.jpg"
+      ],
+      "history": [
+        {
+          "date": "2026-06-22",
+          "price": 1939.0
+        },
+        {
+          "date": "2026-06-23",
+          "price": 1602.48
+        }
+      ],
+      "lowestPrice": 1602.48,
+      "lowestDate": "2026-06-23",
       "highestPrice": 1939.0,
       "highestDate": "2026-06-22"
     },
@@ -99,8 +128,15 @@
       "status": "manual",
       "message": "Handmatig bijgehouden (shop blokkeert auto-scraping).",
       "lastChecked": "2026-06-22T21:05:16+02:00",
-      "images": [ "https://cdn.laredoute.com/cdn-cgi/image/width=650,height=650,fit=pad,dpr=1/products/3/3/6/33660d53aa58286f6b4499e084dc4849.jpg" ],
-      "history": [ { "date": "2026-06-22", "price": 699.0 } ],
+      "images": [
+        "https://cdn.laredoute.com/cdn-cgi/image/width=650,height=650,fit=pad,dpr=1/products/3/3/6/33660d53aa58286f6b4499e084dc4849.jpg"
+      ],
+      "history": [
+        {
+          "date": "2026-06-22",
+          "price": 699.0
+        }
+      ],
       "lowestPrice": 699.0,
       "lowestDate": "2026-06-22",
       "highestPrice": 699.0,
@@ -116,8 +152,15 @@
       "status": "manual",
       "message": "Handmatig bijgehouden (shop blokkeert auto-scraping).",
       "lastChecked": "2026-06-22T21:05:16+02:00",
-      "images": [ "https://cdn.laredoute.com/cdn-cgi/image/width=650,height=650,fit=pad,dpr=1/products/9/0/b/90b1d4c47978b5b605563d5c00d7a5c9.jpg" ],
-      "history": [ { "date": "2026-06-22", "price": 449.0 } ],
+      "images": [
+        "https://cdn.laredoute.com/cdn-cgi/image/width=650,height=650,fit=pad,dpr=1/products/9/0/b/90b1d4c47978b5b605563d5c00d7a5c9.jpg"
+      ],
+      "history": [
+        {
+          "date": "2026-06-22",
+          "price": 449.0
+        }
+      ],
       "lowestPrice": 449.0,
       "lowestDate": "2026-06-22",
       "highestPrice": 449.0,
@@ -133,8 +176,15 @@
       "status": "manual",
       "message": "Handmatig bijgehouden (shop blokkeert auto-scraping).",
       "lastChecked": "2026-06-22T21:05:16+02:00",
-      "images": [ "https://cdn.laredoute.com/cdn-cgi/image/width=650,height=650,fit=pad,dpr=1/products/4/9/9/4998b2ca1cf5531063b3f33039e7e407.jpg" ],
-      "history": [ { "date": "2026-06-22", "price": 54.99 } ],
+      "images": [
+        "https://cdn.laredoute.com/cdn-cgi/image/width=650,height=650,fit=pad,dpr=1/products/4/9/9/4998b2ca1cf5531063b3f33039e7e407.jpg"
+      ],
+      "history": [
+        {
+          "date": "2026-06-22",
+          "price": 54.99
+        }
+      ],
       "lowestPrice": 54.99,
       "lowestDate": "2026-06-22",
       "highestPrice": 54.99,
@@ -149,9 +199,21 @@
       "currentPrice": 899.0,
       "status": "ok",
       "message": "",
-      "lastChecked": "2026-06-22T21:05:16+02:00",
-      "images": [ "https://cdn.shopify.com/s/files/1/0613/3107/9307/files/DEQ25WES98013-771537_c00274d26cfe973584897e66ecc9c043_dtl_1.jpg?v=1756824569&width=600" ],
-      "history": [ { "date": "2026-06-22", "price": 899.0 } ],
+      "lastChecked": "2026-06-23T11:57:05+02:00",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0613/3107/9307/files/DEQ25WES98013-771537_c00274d26cfe973584897e66ecc9c043_dtl_1.jpg",
+        "https://cdn.shopify.com/s/files/1/0613/3107/9307/files/DEQ25WES98013-771537_e102910c20eba53c6b79d6c0fdfe8fc7_srl_40.jpg",
+        "https://cdn.shopify.com/s/files/1/0613/3107/9307/files/DEQ25WES98013-771537_9e4db64b2641230c38539071238ff155_dtl_7.jpg",
+        "https://cdn.shopify.com/s/files/1/0613/3107/9307/files/DEQ25WES98013-771537_832785cde45305b285fe746b205e453c_dtl_6.jpg",
+        "https://cdn.shopify.com/s/files/1/0613/3107/9307/files/DEQ25WES98013-771537_819c29b1339aa472ea41d0a6066392f1_dtl_3.jpg",
+        "https://cdn.shopify.com/s/files/1/0613/3107/9307/files/DEQ25WES98013-771537_87cfed07b98b5470cd9a544d27dbf1c1_dtl_2.jpg"
+      ],
+      "history": [
+        {
+          "date": "2026-06-22",
+          "price": 899.0
+        }
+      ],
       "lowestPrice": 899.0,
       "lowestDate": "2026-06-22",
       "highestPrice": 899.0,
@@ -166,16 +228,41 @@
       "currentPrice": 348.95,
       "status": "ok",
       "message": "bron: variants",
-      "lastChecked": "2026-06-22T21:05:16+02:00",
-      "images": [ "https://cdn.etrias.nl/media/cache/product_md/b/y/by_fonq_glinta_tv_meubel_creme.png" ],
-      "history": [ { "date": "2026-06-22", "price": 348.95 } ],
+      "lastChecked": "2026-06-23T11:57:05+02:00",
+      "images": [
+        "https://cdn.etrias.nl/media/cache/product_thumb_md/b/y/by_fonq_glinta_tv_meubel_creme.png"
+      ],
+      "history": [
+        {
+          "date": "2026-06-22",
+          "price": 348.95
+        }
+      ],
       "lowestPrice": 348.95,
       "lowestDate": "2026-06-22",
       "highestPrice": 348.95,
       "highestDate": "2026-06-22",
       "variants": [
-        { "label": "Crème", "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-creme-331698", "currentPrice": 348.95, "status": "ok", "message": "" },
-        { "label": "Chocolade bruin", "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-chocolade-bruin-331697", "currentPrice": 348.95, "status": "ok", "message": "" }
+        {
+          "label": "Crème",
+          "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-creme-331698",
+          "currentPrice": 348.95,
+          "status": "ok",
+          "message": "",
+          "images": [
+            "https://cdn.etrias.nl/media/cache/product_thumb_md/b/y/by_fonq_glinta_tv_meubel_creme.png"
+          ]
+        },
+        {
+          "label": "Chocolade bruin",
+          "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-chocolade-bruin-331697",
+          "currentPrice": 348.95,
+          "status": "ok",
+          "message": "",
+          "images": [
+            "https://cdn.etrias.nl/media/cache/product_thumb_md/b/y/by_fonq_glinta_tv_meubel_chocolade_bruin.png"
+          ]
+        }
       ]
     }
   ]
