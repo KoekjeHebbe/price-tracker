@@ -2,7 +2,7 @@
   "trackingStartDate": "2026-06-22",
   "currency": "EUR",
   "timezone": "Europe/Brussels",
-  "lastUpdated": "2026-07-12T10:27:26+02:00",
+  "lastUpdated": "2026-07-13T11:40:19+02:00",
   "items": [
     {
       "id": "tafel-laredoute-amorino",
@@ -37,7 +37,7 @@
       "currentPrice": null,
       "status": "pending",
       "message": "HTTP 429",
-      "lastChecked": "2026-07-12T10:27:26+02:00",
+      "lastChecked": "2026-07-13T11:40:19+02:00",
       "images": [],
       "history": [],
       "lowestPrice": null,
@@ -54,7 +54,7 @@
       "currentPrice": 1104.0,
       "status": "ok",
       "message": "",
-      "lastChecked": "2026-07-12T10:27:26+02:00",
+      "lastChecked": "2026-07-13T11:40:19+02:00",
       "images": [
         "https://rowicohome.com/globalassets/inriverimages/2/20546_121205_a_tyler_diningtable_oval_darkbrown_oak.jpg?width=800&format=webp",
         "https://rowicohome.com/globalassets/inriverimages/4/41645_121205-120067_b_mb_tylerdiningtablebrownrodhamchairbrown01.jpg?width=800&format=webp",
@@ -87,7 +87,7 @@
       "currentPrice": 1062.0,
       "status": "ok",
       "message": "",
-      "lastChecked": "2026-07-12T10:27:26+02:00",
+      "lastChecked": "2026-07-13T11:40:19+02:00",
       "images": [
         "https://rowicohome.com/globalassets/inriverimages/3/36497_117633_b_sb_a_filippa_oval_table_brown_oak.jpg?width=800&format=webp",
         "https://rowicohome.com/globalassets/inriverimages/3/37342_117866-117633_b_mb_alisonchairdarkbeigefilippadiningtableovalbrown03.jpg?width=800&format=webp",
@@ -120,7 +120,7 @@
       "currentPrice": 1602.48,
       "status": "ok",
       "message": "",
-      "lastChecked": "2026-07-12T10:27:26+02:00",
+      "lastChecked": "2026-07-13T11:40:19+02:00",
       "images": [
         "https://cdn.webshopapp.com/shops/336719/files/410330529/300x250x2/sav-kse-uitschuifbare-houten-tafel-gunni.jpg",
         "https://cdn.webshopapp.com/shops/336719/files/410330529/sav-kse-uitschuifbare-houten-tafel-gunni.jpg"
@@ -221,7 +221,7 @@
       "currentPrice": 899.0,
       "status": "ok",
       "message": "",
-      "lastChecked": "2026-07-12T10:27:26+02:00",
+      "lastChecked": "2026-07-13T11:40:19+02:00",
       "images": [
         "https://cdn.shopify.com/s/files/1/0613/3107/9307/files/DEQ25WES98013-771537_c00274d26cfe973584897e66ecc9c043_dtl_1.jpg",
         "https://cdn.shopify.com/s/files/1/0613/3107/9307/files/DEQ25WES98013-771537_e102910c20eba53c6b79d6c0fdfe8fc7_srl_40.jpg",
@@ -250,7 +250,7 @@
       "currentPrice": 373.95,
       "status": "ok",
       "message": "bron: variants",
-      "lastChecked": "2026-07-12T10:27:26+02:00",
+      "lastChecked": "2026-07-13T11:40:19+02:00",
       "images": [
         "https://cdn.etrias.nl/media/cache/product_thumb_md/b/y/by_fonq_glinta_tv_meubel_creme.png"
       ],
