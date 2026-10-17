@@ -34,16 +34,21 @@
       "name": "Kave Home · Milian ovale uitschuiftafel 170-320×100",
       "url": "https://kavehome.com/be/nl/p/milian-ovale-uitschuifbare-eettafel-170-320-x-100-cm",
       "currency": "EUR",
-      "currentPrice": null,
-      "status": "pending",
-      "message": "HTTP 429",
-      "lastChecked": "2026-10-17T12:28:10+02:00",
+      "currentPrice": 1095.0,
+      "status": "ok",
+      "message": "bron: plain-http (handmatig geseed)",
+      "lastChecked": "2026-10-17T13:00:00+02:00",
       "images": [],
-      "history": [],
-      "lowestPrice": null,
-      "lowestDate": null,
-      "highestPrice": null,
-      "highestDate": null
+      "history": [
+        {
+          "date": "2026-10-17",
+          "price": 1095.0
+        }
+      ],
+      "lowestPrice": 1095.0,
+      "lowestDate": "2026-10-17",
+      "highestPrice": 1095.0,
+      "highestDate": "2026-10-17"
     },
     {
       "id": "tafel-rowico-tyler",
@@ -159,26 +164,42 @@
           "price": 1939.0
         },
         {
-          "date": "2026-06-23",
-          "price": 1602.48
-        },
-        {
           "date": "2026-09-03",
-          "price": 1685.12
+          "price": 2039.0
         },
         {
           "date": "2026-10-01",
-          "price": 1516.61
-        },
-        {
-          "date": "2026-10-07",
           "price": 1835.1
         }
       ],
-      "lowestPrice": 1516.61,
+      "lowestPrice": 1835.1,
       "lowestDate": "2026-10-01",
-      "highestPrice": 1939.0,
-      "highestDate": "2026-06-22"
+      "highestPrice": 2039.0,
+      "highestDate": "2026-09-03"
+    },
+    {
+      "id": "tafel-kavehome-jondal",
+      "category": "TAFEL",
+      "name": "Kave Home · Jondal uitschuiftafel notelaar 200-286×100",
+      "url": "https://kavehome.com/be/nl/p/jondal-uitschuifbare-tafel-van-massief-hout-en-eikenfineer-met-afwerking-in-notelaar-fsc-100-200-286-x-100-cm",
+      "currency": "EUR",
+      "currentPrice": 1999.0,
+      "status": "ok",
+      "message": "",
+      "lastChecked": "2026-10-17T14:00:00+02:00",
+      "images": [
+        "https://d.media.kavehome.com/image/upload/products/T00469MO10_1V01.jpg"
+      ],
+      "history": [
+        {
+          "date": "2026-10-17",
+          "price": 1999.0
+        }
+      ],
+      "lowestPrice": 1999.0,
+      "lowestDate": "2026-10-17",
+      "highestPrice": 1999.0,
+      "highestDate": "2026-10-17"
     },
     {
       "id": "kast-laredoute-molna",

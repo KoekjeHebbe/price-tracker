@@ -35,6 +35,12 @@
       "url": "https://www.sav-okse.nl/nl/gunni-tafel-uitschuifbaar-walnoot.html"
     },
     {
+      "id": "tafel-kavehome-jondal",
+      "category": "TAFEL",
+      "name": "Kave Home · Jondal uitschuiftafel notelaar 200-286×100",
+      "url": "https://kavehome.com/be/nl/p/jondal-uitschuifbare-tafel-van-massief-hout-en-eikenfineer-met-afwerking-in-notelaar-fsc-100-200-286-x-100-cm"
+    },
+    {
       "id": "kast-laredoute-molna",
       "category": "EXTRA KAST",
       "name": "La Redoute · Buisvormige console Molna",
@@ -66,8 +72,14 @@
       "category": "TV MEUBEL",
       "name": "fonQ · by fonQ Glinta tv-meubel (NL)",
       "variants": [
-        { "label": "Crème", "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-creme-331698" },
-        { "label": "Chocolade bruin", "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-chocolade-bruin-331697" }
+        {
+          "label": "Crème",
+          "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-creme-331698"
+        },
+        {
+          "label": "Chocolade bruin",
+          "url": "https://www.fonq.nl/products/by-fonq-glinta-tv-meubel-chocolade-bruin-331697"
+        }
       ]
     }
   ]

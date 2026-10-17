@@ -19,6 +19,8 @@ Design goals:
 import json
 import os
 import re
+import shutil
+import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -213,6 +215,39 @@ def extract_images(page, base_url):
     return out
 
 
+def lightspeed_price(page, url):
+    """Lightspeed/webshopapp shops (e.g. Sav & Økse) show ex-VAT prices to some
+    visitors (a US runner IP among them), so JSON-LD flips between incl. and excl. VAT.
+    Their `?format=json` endpoint states both; always take price_incl."""
+    try:
+        if "webshopapp.com" not in page.content():
+            return None
+        resp = page.request.get(url.split("?")[0] + "?format=json", timeout=20000)
+        if not resp.ok:
+            return None
+        return parse_price(resp.json()["product"]["price"]["price_incl"])
+    except Exception:
+        return None
+
+
+def plain_http_price(url):
+    """Fallback for shops that rate-limit headless Chromium (Kave Home answers 429):
+    one plain curl GET, price from JSON-LD only (no fragile text regex)."""
+    # curl, not urllib: Kave Home 429s Python's TLS fingerprint but serves curl.
+    curl = shutil.which("curl") or shutil.which("curl.exe")
+    if not curl:
+        return None
+    try:
+        html = subprocess.run(
+            [curl, "-sL", "--compressed", "--max-time", "30", "-A", USER_AGENT,
+             "-H", "Accept-Language: nl-BE,nl;q=0.9", url],
+            capture_output=True, timeout=40).stdout.decode("utf-8", errors="ignore")
+    except Exception:
+        return None
+    scripts = re.findall(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', html, re.S)
+    return price_from_jsonld(scripts)
+
+
 def warm_up(context, host, warmed):
     """Visit a site's homepage once to acquire bot-protection cookies (Akamai etc.)
     and dismiss the cookie banner, so subsequent product pages aren't 403'd."""
@@ -263,7 +298,13 @@ def scrape_url(context, url):
 
             status = resp.status if resp else 0
             if status and status >= 400:
-                if attempt == 2 or status != 404:
+                if status == 429 and attempt == 1:
+                    page.wait_for_timeout(20000)  # rate-limited: back off once
+                    continue
+                if attempt == 2 or status not in (404, 429):
+                    p = plain_http_price(url)
+                    if p:
+                        return {"price": p, "method": "plain-http", "status": "ok", "message": ""}
                     return {"price": None, "method": None, "status": "error",
                             "message": f"HTTP {status}"}
                 page.wait_for_timeout(2000)
@@ -274,7 +315,9 @@ def scrape_url(context, url):
             except Exception:
                 pass
 
-            price, method = extract_price(page)
+            price, method = lightspeed_price(page, url), "lightspeed-json"
+            if price is None:
+                price, method = extract_price(page)
             if price is not None:
                 return {"price": price, "method": method, "status": "ok", "message": "",
                         "images": extract_images(page, url)}
@@ -291,7 +334,7 @@ def scrape_url(context, url):
 # --------------------------------------------------------------------------- #
 # History merge
 # --------------------------------------------------------------------------- #
-def merge(existing, item, scrape, today, now_iso, url):
+def merge(existing, item, scrape, today, now_iso, url, start_date=None):
     """Produce the updated per-item record."""
     rec = {
         "id": item["id"],
@@ -317,14 +360,17 @@ def merge(existing, item, scrape, today, now_iso, url):
         rec["currentPrice"] = existing.get("currentPrice") if existing else None
         rec["status"] = scrape["status"] if (existing and existing.get("history")) else "pending"
         rec["message"] = scrape["message"]
-        rec["lastChecked"] = now_iso
+        # lastChecked stays the time of the last successful price (the page shows it as such).
+        rec["lastChecked"] = existing.get("lastChecked") if existing and existing.get("history") else None
+    rec["lastAttempt"] = now_iso
 
     rec["images"] = (scrape.get("images") if scrape.get("status") == "ok" and scrape.get("images")
                      else (existing.get("images") if existing else None)) or []
     rec["history"] = history
-    if history:
-        lo = min(history, key=lambda h: h["price"])
-        hi = max(history, key=lambda h: h["price"])
+    window = [h for h in history if not start_date or h["date"] >= start_date] or history[-1:]
+    if window:
+        lo = min(window, key=lambda h: h["price"])
+        hi = max(window, key=lambda h: h["price"])
         rec["lowestPrice"], rec["lowestDate"] = lo["price"], lo["date"]
         rec["highestPrice"], rec["highestDate"] = hi["price"], hi["date"]
     else:
@@ -370,17 +416,42 @@ def scrape_config_item(context, item, warmed):
 # --------------------------------------------------------------------------- #
 # Alerts
 # --------------------------------------------------------------------------- #
-def write_alert(new_lows, today):
-    """Write a Markdown issue body describing each new record-low price."""
+STALE_ALERT_DAYS = (7, 30, 60, 90)  # nag on these days only, not every day
+
+
+def stale_items(items, today_date):
+    """Items that failed (or, if manual, were not refreshed) for exactly N days."""
+    out = []
+    for it in items:
+        if it.get("status") == "manual":
+            since = (it.get("lastChecked") or "")[:10]
+        else:
+            since = it.get("failingSince") or ""
+        if not since:
+            continue
+        try:
+            days = (today_date - datetime.fromisoformat(since).date()).days
+        except ValueError:
+            continue
+        if days in STALE_ALERT_DAYS:
+            out.append({"name": it["name"], "url": it.get("url", ""), "days": days,
+                        "why": "handmatig" if it.get("status") == "manual" else (it.get("message") or "fout")})
+    return out
+
+
+def write_alert(new_lows, today, stale=()):
+    """Write a Markdown issue body describing new record-lows and long-stale items."""
     def eur(v):
         return "€ " + f"{v:.2f}".replace(".", ",")
 
-    lines = [
-        f"## 💸 Nieuwe laagste prijs sinds tracking ({today})",
-        "",
-        "| Item | Vorige laagste | Nieuwe prijs | Daling |",
-        "|---|---|---|---|",
-    ]
+    lines = []
+    if new_lows:
+        lines += [
+            f"## 💸 Nieuwe laagste prijs sinds tracking ({today})",
+            "",
+            "| Item | Vorige laagste | Nieuwe prijs | Daling |",
+            "|---|---|---|---|",
+        ]
     for nl in new_lows:
         diff = nl["oldLow"] - nl["newPrice"]
         pct = round(diff / nl["oldLow"] * 100) if nl["oldLow"] else 0
@@ -388,6 +459,10 @@ def write_alert(new_lows, today):
             f"| [{nl['name']}]({nl['url']}) | {eur(nl['oldLow'])} | "
             f"**{eur(nl['newPrice'])}** | −{eur(diff)} (−{pct}%) |"
         )
+    if stale:
+        lines += ["", "## ⚠️ Prijs al lang niet ververst", "",
+                  "| Item | Dagen | Reden |", "|---|---|---|"]
+        lines += [f"| [{s['name']}]({s['url']}) | {s['days']} | {s['why']} |" for s in stale]
     page_url = os.environ.get("PAGE_URL")
     if page_url:
         lines += ["", f"🔗 [Open de prijstracker]({page_url})"]
@@ -462,9 +537,13 @@ def main():
 
             result, snaps, eff_url = scrape_config_item(context, item, warmed)
             existing = existing_by_id.get(item["id"])
-            rec = merge(existing, item, result, today, now_iso, eff_url)
+            rec = merge(existing, item, result, today, now_iso, eff_url, config.get("trackingStartDate"))
             if snaps is not None:
                 rec["variants"] = snaps
+            if result["status"] == "ok":
+                rec["failingSince"] = None
+            else:
+                rec["failingSince"] = (existing or {}).get("failingSince") or today
             updated_items.append(rec)
             # New record-low = a successful scrape that beats the PREVIOUS lowest.
             prev_low = (existing or {}).get("lowestPrice")
@@ -489,8 +568,9 @@ def main():
     }
     PRICES_PATH.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    if new_lows:
-        write_alert(new_lows, today)
+    stale = stale_items(updated_items, now.date())
+    if new_lows or stale:
+        write_alert(new_lows, today, stale)
         print(f"\n🔔 {len(new_lows)} nieuwe laagste prijs(zen) — alert geschreven naar {ALERT_PATH.name}")
 
     print("\n=== Summary ===")
